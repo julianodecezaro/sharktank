@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		
+		<link rel="import" href="bower_components/paper-toolbar/paper-toolbar.html">
+		<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+		<link rel="import" href="bower_components/iron-media-query/iron-media-query.html">
+		<link rel="import" href="bower_components/font-roboto/roboto.html">
+		<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+		<link rel="import" href="bower_components/paper-fab/paper-fab.html">
+		<link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
+		<link rel="import" href="bower_components/iron-pages/iron-pages.html">
+		<link rel="import" href="bower_components/paper-card/paper-card.html">
+		<link rel="import" href="bower_components/paper-button/paper-button.html">
+		<link rel="import" href="bower_components/paper-dialog-behavior/demo/simple-dialog.html">
+		<link rel="import" href="bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+		<link rel="import" href="bower_components/paper-item/paper-item.html">
+		<link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
+		<link rel="import" href="bower_components/paper-ripple/paper-ripple.html">
+		<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
+		<link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
+		<link rel="import" href="bower_components/paper-menu-button/paper-menu-button.html">
+		<link rel="import" href="bower_components/paper-spinner/paper-spinner.html">
+		<link rel="import" href="bower_components/iron-icons/maps-icons.html">
+		<link rel="stylesheet" href="css/default.css" type="text/css">
+		<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" type="text/css">
+		<script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="js/default.js"></script>
+	</head>
+	<body>		
+		<paper-drawer-panel left-drawer id="panel">
+			<div drawer>
+				<div id="drawer-menu">
+					<div id="drawer-image" style="background-image: url(img/drawer/top.png); background-repeat: no-repeat; height: 105px; width: 256px;"></div>
+					<list-row id="play">
+						<list-cell class="red"><i class="fa fa-star"></i></list-cell>
+						<list-cell><div class="flex">Play!</div></list-cell>
+					</list-row>
+					<list-row id="trophies">
+						<list-cell class="orange"><i class="fa fa-trophy"></i></list-cell>
+						<list-cell><div class="flex">Trophies</div></list-cell>
+					</list-row>
+					<list-row id="ranking">
+						<list-cell class="blue"><i class="fa fa-list"></i></list-cell>
+						<list-cell><div class="flex">Ranking</div></list-cell>
+					</list-row>
+					<list-row id="statistics">
+						<list-cell class="green"><i class="fa fa-bar-chart"></i></list-cell>
+						<list-cell><div class="flex">Statistics</div></list-cell>
+					</list-row>
+					<list-row id="about">
+						<list-cell class="gray"><i class="fa fa-graduation-cap"></i></list-cell>
+						<list-cell><div class="flex">About</div></list-cell>
+					</list-row>					
+				</div>
+			</div>
+		</paper-drawer-panel>
+		<paper-toolbar>
+			<paper-icon-button icon="menu" on-tap="menuAction" onClick="document.querySelector('#panel').togglePanel()" iron-select="changed"></paper-icon-button>
+			<div class="title">STAR</div>
+			<paper-menu-button>
+				<paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
+				<paper-menu class="dropdown-content">
+					<paper-item>Profile</paper-item>
+					<paper-item>Settings</paper-item>
+					<paper-item>Logoff</paper-item>
+				</paper-menu>
+			</paper-menu-button>
+		</paper-toolbar>
+		<div id="spinner"><paper-spinner active></paper-spinner></div>
+		<div class="body"></div>		
+		<simple-dialog id="alert" modal role="alertdialog">
+			<h2>Choose friends for challenging</h2>
+			<paper-dialog-scrollable>			
+				<div class="friendslist">
+				</div>
+			</paper-dialog-scrollable>
+			<div class="buttons">
+				<paper-button dialog-dismiss>Cancel</paper-button>
+				<paper-button dialog-confirm autofocus>Start!</paper-button>
+			</div>
+		</simple-dialog>	
+		<!--center style="margin: 20px;">
+            <paper-fab icon="add"></paper-fab>
+            <paper-fab icon="favorite"></paper-fab>
+            <paper-fab icon="add"></paper-fab>
+            <paper-fab icon="favorite"></paper-fab>
+            <paper-fab icon="favorite"></paper-fab>
+		</center-->
+	</body>
+</html>

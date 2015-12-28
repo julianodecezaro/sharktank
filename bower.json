@@ -1,0 +1,23 @@
+{
+  "name": "sharktank",
+  "authors": [
+    "julianodecezaro <julianodecezaro@gmail.com>"
+  ],
+  "description": "SharkTank Project",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "sharktank",
+    "education",
+    "learning"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "polymer": "Polymer/polymer#~1.2.3",
+    "paper-elements": "PolymerElements/paper-elements#~1.0.7",
+    "iron-elements": "PolymerElements/iron-elements#~1.0.7",
+    "jquery": "~2.1.4",
+    "font-awesome": "fontawesome#~4.5.0"
+  }
+}
