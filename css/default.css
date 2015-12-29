@@ -213,7 +213,7 @@ paper-item{
 	z-index: 999;
 }*/
 
-.body{
+.body_ctnr{
 	overflow: auto;
 	height: 3000px;
 	padding-bottom: 6px;
@@ -221,6 +221,22 @@ paper-item{
 
 paper-tab{
 	width: 50%;
+	padding: 12px;
+	background-color: #7A6BC0;
+	color: #FFF;
+}
+
+paper-tabs paper-tab:first-child{
+	border-right: 1px #53439C solid;
+}
+	
+paper-tabs{
+	-webkit-align-items: baseline !important;
+    align-items: baseline !important;
+}
+
+iron-pages{
+	min-height: 200px;
 }
 
 ::-webkit-scrollbar{width:6px;height:6px}
@@ -231,11 +247,31 @@ paper-tab{
 ::-webkit-scrollbar-corner{background-color:#AAA}
 ::-webkit-resizer{background-color:#666}
 
+simple-dialog{
+	max-width: 500px;
+}
+
+#tabsContainer{
+	display: none;
+}
+
 @media screen and (min-width: 600px) {
 			
 	.body{
 		margin: 0px auto;
-		width: 800px;
+		max-width: 800px;
+	}
+	
+	#panel{
+		margin-top: 64px;
+	}
+	
+	#main.style-scope.paper-drawer-panel{
+		z-index: -10;
+	}
+	
+	.body_ctnr{
+		margin-left: 256px;
 	}
 	
 }

@@ -27,6 +27,7 @@
 		<link rel="import" href="bower_components/paper-menu-button/paper-menu-button.html">
 		<link rel="import" href="bower_components/paper-spinner/paper-spinner.html">
 		<link rel="import" href="bower_components/iron-icons/maps-icons.html">
+		<link rel="import" href="bower_components/google-chart/google-chart.html">
 		<link rel="stylesheet" href="css/default.css" type="text/css">
 		<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" type="text/css">
 		<script src="bower_components/webcomponentsjs/webcomponents.js"></script>
@@ -74,7 +75,9 @@
 			</paper-menu-button>
 		</paper-toolbar>
 		<div id="spinner"><paper-spinner active></paper-spinner></div>
-		<div class="body"></div>		
+		<div class="body_ctnr">
+			<div class="body"></div>
+		</div>		
 		<simple-dialog id="alert" modal role="alertdialog">
 			<h2>Choose friends for challenging</h2>
 			<paper-dialog-scrollable>			
@@ -85,7 +88,7 @@
 				<paper-button dialog-dismiss>Cancel</paper-button>
 				<paper-button dialog-confirm autofocus>Start!</paper-button>
 			</div>
-		</simple-dialog>	
+		</simple-dialog>
 		<!--center style="margin: 20px;">
             <paper-fab icon="add"></paper-fab>
             <paper-fab icon="favorite"></paper-fab>

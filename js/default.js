@@ -108,19 +108,25 @@ var trophy = function(_id, _title, _icon, _trophies){
 };
 var rank = function(){
 	var ctnr = $('<div class="ctnr-tabs"></div>');
-	var tabs = $('<paper-tabs selected="{{selected}}"></paper-tabs>');
+	var tabs = $('<paper-tabs selected="0"></paper-tabs>');
 	var tab1 = $('<paper-tab>General</paper-tab>');
 	var tab2 = $('<paper-tab>Friends</paper-tab>');
 	
 	tab1.appendTo(tabs);
 	tab2.appendTo(tabs);
 	tabs.appendTo(ctnr);
-	var pags = $('<iron-pages selected="{{selected}}"></iron-pages>');
+	var pags = $('<iron-pages selected="0"></iron-pages>');
 	var pag1 = $('<div>Page 1</div>');
 	var pag2 = $('<div>Page 2</div>');		
 	pag1.appendTo(pags);
 	pag2.appendTo(pags);
 	pags.appendTo(ctnr);
+	ctnr.appendTo('.body');
+};
+var chart = function(){
+	var ctnr = $('<div id="chart-ctnr"></div>');
+    var chrt = $('<google-chart type="pie" id="selection-chart" options=\'{"title": "Distribution of days in 2001H1"}\' cols=\'[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]\' rows=\'[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]\'> </google-chart>');
+	chrt.appendTo(ctnr);
 	ctnr.appendTo('.body');
 };
 
@@ -154,9 +160,19 @@ var ranking = function(_init){
 		rank();
 	});
 };
+var statistics = function(_init){
+	loadBody(_init, function(){
+		chart();
+	});
+};
+var about = function(_init){
+	loadBody(_init, function(){
+		
+	});
+};
 
 var init = function(){
-	$('.body').css({
+	$('.body_ctnr').css({
 		'height': $(window).height() - $('paper-toolbar').outerHeight(true) - 6
 	});
 };
@@ -165,7 +181,7 @@ $(document).ready(function(){
 	$(window).resize(function(){
 		init();
 	});
-	init();	
+	init();
 	play(true);
 	
 	$(document).on('click', '#play', function(e){
@@ -176,6 +192,12 @@ $(document).ready(function(){
 	});
 	$(document).on('click', '#ranking', function(e){
 		ranking();
+	});
+	$(document).on('click', '#statistics', function(e){
+		statistics();
+	});
+	$(document).on('click', '#about', function(e){
+		about();
 	});
 	
 	$(document).on('click', '#actc', function(e){
