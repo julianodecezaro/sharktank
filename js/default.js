@@ -106,28 +106,46 @@ var trophy = function(_id, _title, _icon, _trophies){
 	trph.appendTo(ctnr);
 	ctnr.appendTo('.body');
 };
+var rankpos = function(_avatar, _name, _pos){
+	var lrow = $('<list-row></list-row>');
+	var cel1 = $('<list-cell><div class="avatar" item-icon><img src="img/friends/'+_avatar+'.jpg" /></div></list-cell>');
+	var cel2 = $('<list-cell><div class="flex">'+_name+'</div></list-cell>');
+	var cel3 = $('<list-cell><div class="flex">'+_pos+'</div></list-cell>');
+	cel1.appendTo(lrow);
+	cel2.appendTo(lrow);
+	cel3.appendTo(lrow);
+	return lrow;
+};
 var rank = function(){
-	var ctnr = $('<div class="ctnr-tabs"></div>');
-	var tabs = $('<paper-tabs selected="0"></paper-tabs>');
-	var tab1 = $('<paper-tab>General</paper-tab>');
-	var tab2 = $('<paper-tab>Friends</paper-tab>');
+	//GENERAL	
+	$i=1;
+	var general = $('<div id="general-ranking"></div>');
+	rankpos('woody-woodpecker', 'Woody Woodpecker', $i++).appendTo(general);
+	rankpos('sugarfoot', 'Sugarfoot', $i++).appendTo(general);
+	rankpos('bart-simpson', 'Bart Simpson', $i++).appendTo(general);
+	rankpos('homer-simpson', 'Homer Simpson', $i++).appendTo(general);	
+	rankpos('sponge-bob', 'Sponge bob', $i++).appendTo(general);
+	$('#tab-general').html(general.html());
 	
-	tab1.appendTo(tabs);
-	tab2.appendTo(tabs);
-	tabs.appendTo(ctnr);
-	var pags = $('<iron-pages selected="0"></iron-pages>');
-	var pag1 = $('<div>Page 1</div>');
-	var pag2 = $('<div>Page 2</div>');		
-	pag1.appendTo(pags);
-	pag2.appendTo(pags);
-	pags.appendTo(ctnr);
-	ctnr.appendTo('.body');
+	//FRIENDS
+	$i=1;
+	var friends = $('<div id="friends-ranking"></div>');
+	rankpos('shrek', 'Shrek', $i++).appendTo(friends);
+	rankpos('bart-simpson', 'Bart Simpson', $i++).appendTo(friends);
+	rankpos('homer-simpson', 'Homer Simpson', $i++).appendTo(friends);
+	rankpos('sponge-bob', 'Sponge bob', $i++).appendTo(friends);
+	$('#tab-friends').html(friends.html());
 };
 var chart = function(){
 	var ctnr = $('<div id="chart-ctnr"></div>');
-    var chrt = $('<google-chart type="pie" id="selection-chart" options=\'{"title": "Distribution of days in 2001H1"}\' cols=\'[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]\' rows=\'[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]\'> </google-chart>');
-	chrt.appendTo(ctnr);
-	ctnr.appendTo('.body');
+    var chtq = $('<google-chart type="pie" id="selection-chart" options=\'{"title": "Distribution of days in 2001H1"}\' cols=\'[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]\' rows=\'[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]\'> </google-chart>');
+	chtq.appendTo(ctnr);
+	$('#tab-questions').html(ctnr.html());
+	
+	var ctnr2 = $('<div id="chart-ctnr"></div>');
+    var chtc = $('<google-chart type="pie" id="selection-chart2" options=\'{"title": "PUMBAAAA sadasdasdasdasdasdasd"}\' cols=\'[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]\' rows=\'[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]\'> </google-chart>');
+	chtc.appendTo(ctnr2);
+	$('#tab-challenges').html(ctnr2.html());
 };
 
 var play = function(_init){
@@ -157,11 +175,13 @@ var trophies = function(_init){
 };
 var ranking = function(_init){
 	loadBody(_init, function(){
+		$('<content-tabs></content-tabs>').appendTo('.body');
 		rank();
-	});
+	});	
 };
 var statistics = function(_init){
 	loadBody(_init, function(){
+		$('<content-tabs-statistics></content-tabs-statistics>').appendTo('.body');
 		chart();
 	});
 };

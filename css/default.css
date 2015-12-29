@@ -226,10 +226,6 @@ paper-tab{
 	color: #FFF;
 }
 
-paper-tabs paper-tab:first-child{
-	border-right: 1px #53439C solid;
-}
-	
 paper-tabs{
 	-webkit-align-items: baseline !important;
     align-items: baseline !important;
@@ -251,9 +247,9 @@ simple-dialog{
 	max-width: 500px;
 }
 
-#tabsContainer{
+/*#tabsContainer{
 	display: none;
-}
+}*/
 
 @media screen and (min-width: 600px) {
 			
