@@ -20,7 +20,13 @@
 		<link rel="import" href="bower_components/paper-dialog-behavior/demo/simple-dialog.html">
 		<link rel="import" href="bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
 		<link rel="import" href="bower_components/paper-item/paper-item.html">
+		<link rel="import" href="bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+		<link rel="import" href="bower_components/paper-listbox/paper-listbox.html">
+		<link rel="import" href="bower_components/paper-input/paper-textarea.html">
+		<link rel="import" href="bower_components/paper-input/paper-input.html">
 		<link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
+		<link rel="import" href="bower_components/paper-radio-button/paper-radio-button.html">
+		<link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
 		<link rel="import" href="bower_components/paper-ripple/paper-ripple.html">
 		<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
 		<link rel="import" href="bower_components/paper-drawer-panel/paper-drawer-panel.html">
@@ -29,6 +35,7 @@
 		<link rel="import" href="bower_components/iron-icons/maps-icons.html">
 		<link rel="import" href="bower_components/google-chart/google-chart.html">
 		<link rel="import" href="bower_components/paper-tabs/template/content-tabs.html">
+		<!--link rel="import" href="bower_components/bower_components/paper-styles/demo-pages.html"-->
 		<link rel="stylesheet" href="css/default.css" type="text/css">
 		<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css" type="text/css">
 		<script src="bower_components/webcomponentsjs/webcomponents.js"></script>
@@ -69,9 +76,9 @@
 			<paper-menu-button>
 				<paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
 				<paper-menu class="dropdown-content">
-					<paper-item>Profile</paper-item>
-					<paper-item>Settings</paper-item>
-					<paper-item>Logoff</paper-item>
+					<paper-item id="profile">Profile</paper-item>
+					<paper-item id="settings">Settings</paper-item>
+					<paper-item id="logoff">Logoff</paper-item>
 				</paper-menu>
 			</paper-menu-button>
 		</paper-toolbar>
@@ -87,7 +94,7 @@
 			</paper-dialog-scrollable>
 			<div class="buttons">
 				<paper-button dialog-dismiss>Cancel</paper-button>
-				<paper-button dialog-confirm autofocus>Start!</paper-button>
+				<paper-button id="start" dialog-confirm autofocus>Start!</paper-button>
 			</div>
 		</simple-dialog>
 		<!--center style="margin: 20px;">

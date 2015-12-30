@@ -107,10 +107,10 @@ var trophy = function(_id, _title, _icon, _trophies){
 	ctnr.appendTo('.body');
 };
 var rankpos = function(_avatar, _name, _pos){
-	var lrow = $('<list-row></list-row>');
+	var lrow = $('<list-row id="rankpos'+_pos+'"></list-row>');
 	var cel1 = $('<list-cell><div class="avatar" item-icon><img src="img/friends/'+_avatar+'.jpg" /></div></list-cell>');
 	var cel2 = $('<list-cell><div class="flex">'+_name+'</div></list-cell>');
-	var cel3 = $('<list-cell><div class="flex">'+_pos+'</div></list-cell>');
+	var cel3 = $('<list-cell><div class="flex rankpos">'+_pos+'</div></list-cell>');
 	cel1.appendTo(lrow);
 	cel2.appendTo(lrow);
 	cel3.appendTo(lrow);
@@ -122,7 +122,12 @@ var rank = function(){
 	var general = $('<div id="general-ranking"></div>');
 	rankpos('woody-woodpecker', 'Woody Woodpecker', $i++).appendTo(general);
 	rankpos('sugarfoot', 'Sugarfoot', $i++).appendTo(general);
+	rankpos('dory', 'Dory', $i++).appendTo(general);
 	rankpos('bart-simpson', 'Bart Simpson', $i++).appendTo(general);
+	rankpos('nemo', 'Nemo', $i++).appendTo(general);
+	rankpos('kung-fu-panda', 'Kung Fu Panda', $i++).appendTo(general);
+	rankpos('mario-bros', 'Mario Bros', $i++).appendTo(general);
+	rankpos('luigi', 'Luigi', $i++).appendTo(general);
 	rankpos('homer-simpson', 'Homer Simpson', $i++).appendTo(general);	
 	rankpos('sponge-bob', 'Sponge bob', $i++).appendTo(general);
 	$('#tab-general').html(general.html());
@@ -134,6 +139,10 @@ var rank = function(){
 	rankpos('bart-simpson', 'Bart Simpson', $i++).appendTo(friends);
 	rankpos('homer-simpson', 'Homer Simpson', $i++).appendTo(friends);
 	rankpos('sponge-bob', 'Sponge bob', $i++).appendTo(friends);
+	rankpos('marge-simpson', 'Marge Simpson', $i++).appendTo(friends);
+	rankpos('fiona', 'Fiona', $i++).appendTo(friends);
+	rankpos('donkey', 'Donkey', $i++).appendTo(friends);
+	rankpos('cat', 'Cat', $i++).appendTo(friends);
 	$('#tab-friends').html(friends.html());
 };
 var chart = function(){
@@ -146,6 +155,57 @@ var chart = function(){
     var chtc = $('<google-chart type="pie" id="selection-chart2" options=\'{"title": "PUMBAAAA sadasdasdasdasdasdasd"}\' cols=\'[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]\' rows=\'[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]\'> </google-chart>');
 	chtc.appendTo(ctnr2);
 	$('#tab-challenges').html(ctnr2.html());
+};
+var question = function(_qstn, _optns, _editabled, _button, _evaluation){
+	var ctnr = $('<div id="question-ctnr"></div>');
+	var card = $('<paper-card heading="" style="padding: 6px 6px 10px 6px;"></paper-card>');
+	var crdc = $('<div class="card-content"></div>');
+	if(!_editabled){
+		var qstn = $('<div class="qstn"><h3 style="margin-top: 0px;">'+_qstn+'</h3></div>');
+	}else {
+		var qstn = $('<div class="qstn"><paper-textarea label="Question" value="'+_qstn+'"></paper-textarea></div>');
+	}
+	var opts = $('<div class="optns"></div>');
+	if(!_editabled){
+		var ogrp = $('<paper-radio-group selected=""></paper-radio-group>');
+		$(_optns).each(function(i, o){
+			if(_evaluation){
+				if(i == 1){
+					$('<paper-radio-button name="'+i+'" checked>'+o+'</paper-radio-button>').appendTo(ogrp);
+				}else {
+					$('<paper-radio-button name="'+i+'" disabled>'+o+'</paper-radio-button>').appendTo(ogrp);
+				}
+			}else {
+				$('<paper-radio-button name="'+i+'">'+o+'</paper-radio-button>').appendTo(ogrp);
+			}
+		});
+		ogrp.appendTo(opts);
+	}else {
+		var atd = $('<paper-dropdown-menu label="Answer type"></paper-dropdown-menu>');
+		var atm = $('<paper-listbox class="dropdown-content"></paper-listbox>');
+		//var at1 = $('<paper-item>One choice</paper-item>');
+		//var at2 = $('<paper-item>Multiple choice</paper-item>');
+		//var at3 = $('<paper-item>Text area</paper-item>');
+		//at1.appendTo(atm);
+		//at2.appendTo(atm);
+		//at3.appendTo(atm);
+		atm.appendTo(atd);
+		atd.appendTo(opts);
+	}
+	qstn.appendTo(crdc);
+	opts.appendTo(crdc);
+	crdc.appendTo(card);
+	if(_button){
+		$('<paper-button>SEND</paper-button>').appendTo(card);
+	}
+	if(_evaluation){
+		$('<div class="correct-answer">Answer: $_SERVER</div>').appendTo(card);		
+		$('<paper-textarea label="Opinion"></paper-textarea>').appendTo(card);		
+		$('<paper-button>ACCEPT</paper-button><paper-button class="reject">REJECT</paper-button>').appendTo(card);
+	}
+	card.appendTo(ctnr);
+	ctnr.appendTo('.body');
+	
 };
 
 var play = function(_init){
@@ -190,6 +250,65 @@ var about = function(_init){
 		
 	});
 };
+var profile = function(_init){
+	loadBody(_init, function(){
+		var arr = ['$_GLOBALS', '$_SERVER', '$_SESSION', '$_COOKIE', '$_VARS'];
+		question('Which superglobal variable holds information about headers, paths, and script locations?', arr, true);
+		$(document).on('click', 'paper-radio-button', function(){
+			$('paper-radio-button').prop('checked', false);
+			$(this).prop('checked', true);
+		});
+	});
+};
+var settings = function(_init){
+	loadBody(_init, function(){
+		var arr = ['$_GLOBALS', '$_SERVER', '$_SESSION', '$_COOKIE', '$_VARS'];
+		question('Which superglobal variable holds information about headers, paths, and script locations?', arr, false, false, true);
+		$(document).on('click', 'paper-radio-button', function(){
+			$('paper-radio-button').prop('checked', false);
+			$(this).prop('checked', true);
+		});
+	});
+};
+var questions = function(_init){
+	loadBody(_init, function(){
+		var arr = ['$_GLOBALS', '$_SERVER', '$_SESSION', '$_COOKIE', '$_VARS'];
+		question('Which superglobal variable holds information about headers, paths, and script locations?', arr, false, true);
+		$(document).on('click', 'paper-radio-button', function(){
+			$('paper-radio-button').prop('checked', false);
+			$(this).prop('checked', true);
+		});
+	});
+};
+var start = function(_init){
+	loadBody(_init, function(){
+		var arr = ['$_GLOBALS', '$_SERVER', '$_SESSION', '$_COOKIE', '$_VARS'];
+		question('Which superglobal variable holds information about headers, paths, and script locations?', arr, false, true);
+		$(document).on('click', 'paper-radio-button', function(){
+			$('paper-radio-button').prop('checked', false);
+			$(this).prop('checked', true);
+		});
+		$('<div id="gamersbar"><div class="gamers"><img id="bart-img" src="img/friends/bart-simpson.jpg"><img id="homer-img" src="img/friends/homer-simpson.jpg"><img id="shrek-img" src="img/friends/shrek.jpg"></div><div class="timer">60</div></div>').appendTo('.body');
+		var itrvl = window.setInterval(function(){ 
+			var val = parseInt($('.timer').text());
+			if(val == 0){
+				window.clearInterval(itrvl);
+			}else {
+				val--;
+				if(val == 47){
+					$('#bart-img').attr('src', 'img/friends/bart-simpson-ok.jpg');
+				}				
+				if(val == 32){
+					$('#homer-img').attr('src', 'img/friends/homer-simpson-ok.jpg');
+				}
+				if(val == 33){
+					$('#shrek-img').attr('src', 'img/friends/shrek-err.jpg');
+				}				
+				$('.timer').text(val);
+			}
+		}, 1000);
+	});
+};
 
 var init = function(){
 	$('.body_ctnr').css({
@@ -219,15 +338,27 @@ $(document).ready(function(){
 	$(document).on('click', '#about', function(e){
 		about();
 	});
+	$(document).on('click', '#profile', function(e){
+		profile(true);
+	});
+	$(document).on('click', '#settings', function(e){
+		settings(true);
+	});
 	
 	$(document).on('click', '#actc', function(e){
 		var card_id = $(this).parents('paper-card').attr('id');
-		console.log(card_id);
+		//console.log(card_id);
 		var id = e.target.getAttribute('data-dialog');
 		var dialog = document.getElementById(id);
 		if (dialog) {
 			dialog.toggle();
 			e.target.toggleAttribute && e.target.toggleAttribute('data-dialog-opened', dialog.opened);
 		}
+	});
+	$(document).on('click', '#actq', function(e){
+		questions(true);
+	});
+	$(document).on('click', '#start', function(e){
+		start(true);
 	});
 });

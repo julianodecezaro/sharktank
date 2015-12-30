@@ -216,7 +216,7 @@ paper-item{
 .body_ctnr{
 	overflow: auto;
 	height: 3000px;
-	padding-bottom: 6px;
+	padding-bottom: 6px;	
 }
 
 paper-tab{
@@ -251,6 +251,118 @@ simple-dialog{
 	display: none;
 }*/
 
+paper-tab div.tab-content{
+	margin-bottom: 10px !important;
+}
+
+#selectionBar.paper-tabs{
+	height: 3px;
+}
+
+#tab-general list-cell, #tab-friends list-cell{
+	padding: 8px 6px;
+}
+
+#rankpos1 list-cell{
+	padding: 30px 6px;
+}
+
+div.flex.rankpos{
+	font-size: 18px;
+	border-radius: 50%;
+	background-color: #DDD;
+	color: #333;
+	padding: 4px 10px;
+	text-align: center;
+	max-width: 10px;
+}
+
+#rankpos1 div.flex.rankpos{
+	background-color: #5CC26B;
+	color: #FFF;
+}
+
+iron-pages.content-tabs{
+	padding: 0px;
+	border: 0px;
+}
+
+#rankpos1{
+	background-color: #3FA94F;
+	color: #FFF;
+	font-weight: bold;
+}
+
+#tab-general list-cell:first-child, #tab-friends list-cell:first-child{
+	padding-left: 12px;
+}
+#tab-general list-cell:last-child, #tab-friends list-cell:last-child{
+	padding-right: 12px;
+}
+
+/*#rankpos2, #rankpos3{
+	background-color: #008C46;
+	color: #FFF;
+}*/
+
+#question-ctnr{
+	margin: 6px;
+}
+#question-ctnr paper-textarea, #question-ctnr paper-dropdown-menu{
+	padding: 6px;
+}
+#question-ctnr paper-button{
+	background-color: #3FA94F;
+	color: #FFF;
+}
+#question-ctnr paper-button.reject{
+	background-color: #EC4F4F;	
+}
+
+.correct-answer{
+	color: #3FA94F;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 2px 30px;
+}
+
+paper-radio-group{
+	outline: none;
+}
+
+#gamersbar{
+	position: fixed;
+	background-color: #333;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+#gamersbar .gamers, #gamersbar .timer{
+	display: table-cell;
+	text-align: center;
+}
+
+#gamersbar .gamers{
+	width: 100%;
+}
+#gamersbar .gamers img{
+	margin: 2px;
+}
+
+.timer{
+	//background-color: #53439C;
+    color: #FFF;
+    padding: 0px 24px;
+    //border-radius: 50%;
+    //width: 28px;
+    //height: 28px;
+    text-align: center;
+    vertical-align: middle;
+    //line-height: 28px;
+    font-size: 26px;
+}
+
 @media screen and (min-width: 600px) {
 			
 	.body{
@@ -268,6 +380,10 @@ simple-dialog{
 	
 	.body_ctnr{
 		margin-left: 256px;
+	}
+	
+	#gamersbar{
+		left: 256px;
 	}
 	
 }
