@@ -23,6 +23,61 @@ paper-card:not([style-scope]):not(.style-scope) {
 	width: 100%;
 	margin: 0px;
 }
+
+.comment-ctnr-in list-cell:first-child{
+	width: 100%;
+	text-align: right;
+}
+.comment-ctnr-in list-cell:last-child{
+	width: 48px;
+}
+.comment-ctnr-in-q #comment, .comment-ctnr-in #comment{
+	padding: 10px;
+}
+.comment-ctnr-in #comment{
+	text-align: right;
+	color: #9A84FF;
+    font-style: italic;	
+}
+
+.comment-ctnr-in{
+	border-top: 1px #EEE solid;
+	padding: 4px 0px;	
+}
+
+#comment-btns{
+	text-align: right;
+	color: #888;
+}
+
+.comment-ctnr iron-icon.iron-icon-1{
+	width: 28px;
+	height: 28px;
+}
+.comment-ctnr paper-fab{
+	width: 70px;
+	height: 70px;
+}
+
+.comment-ctnr-in-q #comment-btns{
+	text-align: left;
+}
+
+#comment-btns iron-icon{
+	padding: 12px 6px;
+}
+
+.comment-ctnr-in-q #comment{
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.comment-ctnr{
+	padding: 6px;
+}
+.comment-ctnr list-cell:last-child{
+	width: 100%;
+}
 .card-container, .trophy-container{
 	padding: 6px;
 	padding-bottom: 0px;
@@ -330,12 +385,17 @@ paper-radio-group{
 	outline: none;
 }
 
+#scrollable{
+	min-height: 100px;
+}
+
 #gamersbar{
 	position: fixed;
-	background-color: #333;
+	background-color: #444;
 	bottom: 0;
 	left: 0;
 	right: 0;
+	z-index: 101;
 }
 
 #gamersbar .gamers, #gamersbar .timer{
@@ -361,6 +421,16 @@ paper-radio-group{
     vertical-align: middle;
     //line-height: 28px;
     font-size: 26px;
+}
+
+.questions-counter{
+	padding: 8px 12px;
+	margin: 6px 0px;
+	margin-bottom: 0px;
+	background-color: #444;
+	color: #FFF;
+	font-weight: bold;	
+	text-align: right;
 }
 
 @media screen and (min-width: 600px) {

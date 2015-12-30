@@ -1,3 +1,5 @@
+var admin = true;
+
 var loadBody = function(_init, _trigger){
 	$('.body').html('');
 	if(!_init){
@@ -120,6 +122,10 @@ var rank = function(){
 	//GENERAL	
 	$i=1;
 	var general = $('<div id="general-ranking"></div>');
+	if(admin){
+		$('<div style="margin: 6px 12px;"><paper-dropdown-menu label="Course"></paper-dropdown-menu></div>').appendTo(general);
+	}
+	
 	rankpos('woody-woodpecker', 'Woody Woodpecker', $i++).appendTo(general);
 	rankpos('sugarfoot', 'Sugarfoot', $i++).appendTo(general);
 	rankpos('dory', 'Dory', $i++).appendTo(general);
@@ -135,6 +141,10 @@ var rank = function(){
 	//FRIENDS
 	$i=1;
 	var friends = $('<div id="friends-ranking"></div>');
+	if(admin){
+		$('<div style="margin: 6px 12px;"><paper-dropdown-menu label="Course"></paper-dropdown-menu></div>').appendTo(friends);
+	}
+	
 	rankpos('shrek', 'Shrek', $i++).appendTo(friends);
 	rankpos('bart-simpson', 'Bart Simpson', $i++).appendTo(friends);
 	rankpos('homer-simpson', 'Homer Simpson', $i++).appendTo(friends);
@@ -147,17 +157,31 @@ var rank = function(){
 };
 var chart = function(){
 	var ctnr = $('<div id="chart-ctnr"></div>');
-    var chtq = $('<google-chart type="pie" id="selection-chart" options=\'{"title": "Distribution of days in 2001H1"}\' cols=\'[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]\' rows=\'[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]\'> </google-chart>');
+    //var chtq = $('<google-chart type="pie" id="selection-chart" options=\'{"title": "Distribution of days in 2001H1"}\' cols=\'[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]\' rows=\'[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]\'> </google-chart>');
+	if(admin){
+		var chtq = $('<img src="img/statistics/participation.jpg"></img>');
+	}else {
+		var chtq = $('<img src="img/statistics/questions.jpg"></img>');
+	}
 	chtq.appendTo(ctnr);
 	$('#tab-questions').html(ctnr.html());
 	
 	var ctnr2 = $('<div id="chart-ctnr"></div>');
-    var chtc = $('<google-chart type="pie" id="selection-chart2" options=\'{"title": "PUMBAAAA sadasdasdasdasdasdasd"}\' cols=\'[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]\' rows=\'[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]\'> </google-chart>');
+    //var chtc = $('<google-chart type="pie" id="selection-chart2" options=\'{"title": "PUMBAAAA sadasdasdasdasdasdasd"}\' cols=\'[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]\' rows=\'[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]\'> </google-chart>');
+	if(admin){
+		var chtc = $('<img src="img/statistics/mistakes.jpg"></img>');
+	}else {
+		var chtc = $('<img src="img/statistics/challenges.jpg"></img>');
+	}
 	chtc.appendTo(ctnr2);
+	//$('<paper-button raised><iron-icon icon="favorite"></iron-icon>Like</paper-button>').appendTo(ctnr2);
 	$('#tab-challenges').html(ctnr2.html());
 };
 var question = function(_qstn, _optns, _editabled, _button, _evaluation){
 	var ctnr = $('<div id="question-ctnr"></div>');
+	if(!_editabled && _button && !_evaluation){
+		$('<div class="questions-counter">1/10</div>').appendTo(ctnr);
+	}
 	var card = $('<paper-card heading="" style="padding: 6px 6px 10px 6px;"></paper-card>');
 	var crdc = $('<div class="card-content"></div>');
 	if(!_editabled){
@@ -196,7 +220,11 @@ var question = function(_qstn, _optns, _editabled, _button, _evaluation){
 	opts.appendTo(crdc);
 	crdc.appendTo(card);
 	if(_button){
-		$('<paper-button>SEND</paper-button>').appendTo(card);
+		if(chllg){
+			$('<paper-button id="send-challenge" data-dialog="finish-challenge">SEND</paper-button>').appendTo(card);
+		}else {
+			$('<paper-button id="send-question" data-dialog="finish-question">SEND</paper-button>').appendTo(card);
+		}
 	}
 	if(_evaluation){
 		$('<div class="correct-answer">Answer: $_SERVER</div>').appendTo(card);		
@@ -205,7 +233,6 @@ var question = function(_qstn, _optns, _editabled, _button, _evaluation){
 	}
 	card.appendTo(ctnr);
 	ctnr.appendTo('.body');
-	
 };
 
 var play = function(_init){
@@ -241,7 +268,11 @@ var ranking = function(_init){
 };
 var statistics = function(_init){
 	loadBody(_init, function(){
-		$('<content-tabs-statistics></content-tabs-statistics>').appendTo('.body');
+		if(admin){
+			$('<content-tabs-statistics-admin></content-tabs-statistics-admin>').appendTo('.body');
+		}else {
+			$('<content-tabs-statistics></content-tabs-statistics>').appendTo('.body');
+		}
 		chart();
 	});
 };
@@ -270,7 +301,9 @@ var settings = function(_init){
 		});
 	});
 };
+var chllg = false;
 var questions = function(_init){
+	chllg = false;
 	loadBody(_init, function(){
 		var arr = ['$_GLOBALS', '$_SERVER', '$_SESSION', '$_COOKIE', '$_VARS'];
 		question('Which superglobal variable holds information about headers, paths, and script locations?', arr, false, true);
@@ -278,9 +311,22 @@ var questions = function(_init){
 			$('paper-radio-button').prop('checked', false);
 			$(this).prop('checked', true);
 		});
+		$(document).on('click', '#send-question', function(e){
+			var id = e.target.getAttribute('data-dialog');
+			var dialog = document.getElementById(id);
+			if (dialog) {
+				dialog.toggle();
+				e.target.toggleAttribute && e.target.toggleAttribute('data-dialog-opened', dialog.opened);
+				$(document).on('click', '#comments', function(e){
+					comments(true);
+					dialog.toggle();
+				});
+			}
+		});
 	});
 };
 var start = function(_init){
+	chllg = true;
 	loadBody(_init, function(){
 		var arr = ['$_GLOBALS', '$_SERVER', '$_SESSION', '$_COOKIE', '$_VARS'];
 		question('Which superglobal variable holds information about headers, paths, and script locations?', arr, false, true);
@@ -300,6 +346,8 @@ var start = function(_init){
 				}				
 				if(val == 32){
 					$('#homer-img').attr('src', 'img/friends/homer-simpson-ok.jpg');
+					$('#finish-challenge #waiting').hide();
+					$('#finish-challenge #continue').show();
 				}
 				if(val == 33){
 					$('#shrek-img').attr('src', 'img/friends/shrek-err.jpg');
@@ -307,6 +355,67 @@ var start = function(_init){
 				$('.timer').text(val);
 			}
 		}, 1000);
+		$(document).on('click', '#send-challenge', function(e){
+			var id = e.target.getAttribute('data-dialog');
+			var dialog = document.getElementById(id);
+			if (dialog) {
+				dialog.toggle();
+				e.target.toggleAttribute && e.target.toggleAttribute('data-dialog-opened', dialog.opened);
+				$(document).on('click', '#comments', function(e){
+					comments(true);
+					dialog.toggle();
+				});
+			}
+		});
+	});
+};
+var comment = function(_avatar, _name, _text, _comment){
+	var ctnr = $('<div class="comment-ctnr-in'+(!_comment?'-q':'')+'"></div>');
+	var lrow = $('<list-row id="commentn"></list-row>');
+	if(_comment){
+		var cel2 = $('<list-cell><div class="avatar" item-icon><img src="img/friends/'+_avatar+'.jpg" /></div></list-cell>');
+		var cel1 = $('<list-cell><div class="flex">'+_name+'</div></list-cell>');
+	}else {
+		var cel1 = $('<list-cell><div class="avatar" item-icon><img src="img/friends/'+_avatar+'.jpg" /></div></list-cell>');
+		var cel2 = $('<list-cell><div class="flex">'+_name+'</div></list-cell>');
+	}
+	cel1.appendTo(lrow);
+	cel2.appendTo(lrow);
+	//cel2.appendTo(lrow2);
+	lrow.appendTo(ctnr);
+	$('<div id="comment" >'+_text+'</div>').appendTo(ctnr);
+	$('<div id="comment-btns" ><iron-icon icon="reply"></iron-icon><iron-icon icon="thumb-up"></iron-icon><iron-icon icon="thumb-down"></iron-icon></div>').appendTo(ctnr);
+	return ctnr;
+};
+var comment_card = function(_img, _name, _question, _comments){	
+	if(_question){
+		var cmm = comment(_img, _name, _question);
+	}else {
+		var cmm = comment(_img, _name, _comments, true);
+	}
+	return cmm;
+};
+var comments = function(_init){
+	loadBody(_init, function(){
+		var ctnr = $('<div class="comment-ctnr"></div>');
+		var card = $('<paper-card></paper-card>');
+		var cardc = $('<div class="card-content"></div>');
+		comment_card('sponge-bob', 'Sponge Bob', 'What does the $_VARS variable do?').appendTo(cardc);
+		comment_card('woody-woodpecker', 'Woody Woodpecker', null, 'Nothing. This is not a global variable.').appendTo(cardc);
+		comment_card('sponge-bob', 'Sponge Bob', null, 'Thank you! I’m a PHP super noob. ;)').appendTo(cardc);		
+		cardc.appendTo(card);
+		
+		var card2 = $('<paper-card style="margin-top: 6px; margin-bottom: 54px;"></paper-card>');
+		var cardc2 = $('<div class="card-content"></div>');
+		comment_card('donkey', 'Donkey', 'My answer was $_SESSION, I\'m really a donkey!! :/').appendTo(cardc2);
+		comment_card('shrek', 'Shrek', null, 'LOL ;P').appendTo(cardc2);
+		
+		cardc2.appendTo(card2);
+		
+		card.appendTo(ctnr);
+		card2.appendTo(ctnr);
+		$('<paper-fab icon="add" title="New Question" style="position: fixed;bottom: 6px;right: 6px; z-index: 5; color: #FFF !important; background-color: #53439C !important;"></paper-fab>').appendTo(ctnr);
+		ctnr.appendTo('.body');
 	});
 };
 
@@ -343,7 +452,7 @@ $(document).ready(function(){
 	});
 	$(document).on('click', '#settings', function(e){
 		settings(true);
-	});
+	});	
 	
 	$(document).on('click', '#actc', function(e){
 		var card_id = $(this).parents('paper-card').attr('id');

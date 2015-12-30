@@ -55,7 +55,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       iron-pages {
         border: 1px solid #ccc;
         border-top: none;
-        padding: 8px;
+        padding: 0px;
 		height: 100%;
 		background-color: #FFF;
       }
@@ -72,6 +72,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     Polymer({
       is: 'content-tabs-statistics',
+      properties: {
+        selected: {
+          type: Number,
+          value: 0
+        }
+      }
+    });
+  </script>
+</dom-module>
+
+<dom-module is="content-tabs-statistics-admin">
+  <template>
+    <style include="paper-tabs-styles"></style>
+    <style>
+      iron-pages {
+        border: 1px solid #ccc;
+        border-top: none;
+        padding: 0px;
+		height: 100%;
+		background-color: #FFF;
+      }
+    </style>
+    <paper-tabs selected="{{selected}}">
+      <paper-tab>PARTICIPATION</paper-tab>
+      <paper-tab>MISTAKES</paper-tab>
+    </paper-tabs>
+    <iron-pages selected="{{selected}}">
+      <div id="tab-questions">LOADING...</div>
+      <div id="tab-challenges">LOADING...</div>
+    </iron-pages>
+  </template>
+  <script>
+    Polymer({
+      is: 'content-tabs-statistics-admin',
       properties: {
         selected: {
           type: Number,
